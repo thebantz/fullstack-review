@@ -1,9 +1,19 @@
 const express = require('express');
 let app = express();
+const bodyParser = require('body-parser');
+const jsonParser = bodyParser.json();
+const githubHelp = require('../helpers/github.js');
+
 
 app.use(express.static(__dirname + '/../client/dist'));
+// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.post('/repos', function (req, res) {
+  // model.get((err, data), req.body.search);
+  const userName = req.body.search;
+  githubHelp.getReposByUsername(userName);
+  res.send('Hello from Server');
   // TODO - your code here!
   // This route should take the github username provided
   // and get the repo information from the github API, then
@@ -12,12 +22,13 @@ app.post('/repos', function (req, res) {
 
 app.get('/repos', function (req, res) {
   // TODO - your code here!
+  res.send('Is there anybody out there?');
   // This route should send back the top 25 repos
 });
 
 let port = 1128;
 
-app.listen(port, function() {
+app.listen(port, function () {
   console.log(`listening on port ${port}`);
 });
 

@@ -3,26 +3,36 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import Search from './components/Search.jsx';
 import RepoList from './components/RepoList.jsx';
+import axios from 'axios';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       repos: []
     }
 
   }
 
-  search (term) {
+  search(term) {
     console.log(`${term} was searched`);
-    // TODO
+    // axios({
+    //   method: 'post',
+    //   url: '/repos',
+    //   data: { search: term }
+    // })
+    //   .then(console.log('posting something'))
+    //   .catch(error => console.log(error));
+    axios.post('/repos', { search: term })
+      .then(console.log('sendin up some search'))
+      .catch(error => console.log(error));
   }
 
-  render () {
+  render() {
     return (<div>
       <h1>Github Fetcher</h1>
-      <RepoList repos={this.state.repos}/>
-      <Search onSearch={this.search.bind(this)}/>
+      <RepoList repos={this.state.repos} />
+      <Search onSearch={this.search.bind(this)} />
     </div>)
   }
 }

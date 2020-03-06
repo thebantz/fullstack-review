@@ -1,5 +1,14 @@
+const app = require('../client/src/index.jsx');
+
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/fetcher');
+mongoose.connect('mongodb://localhost/1128', { useNewUrlParser: true });
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function () {
+  // we're connected!
+  console.log('we\'re connected!');
+});
 
 let repoSchema = mongoose.Schema({
   // TODO: your schema here!
@@ -13,4 +22,6 @@ let save = (/* TODO */) => {
   // the MongoDB
 }
 
-module.exports.save = save;
+module.exports.db = {
+  save, mongoose
+};
