@@ -13,7 +13,10 @@ app.use(bodyParser.json());
 app.post('/repos', function (req, res) {
   // model.get((err, data), req.body.search);
   const userName = req.body.search;
-  githubHelp.getReposByUsername(userName);
+  var repoDeets = githubHelp.getReposByUsername(userName);
+  // db.saveRepo()
+
+
   res.send('It\'s up');
   // TODO - your code here!
   // This route should take the github username provided
@@ -23,7 +26,7 @@ app.post('/repos', function (req, res) {
 
 app.get('/repos', function (req, res) {
   // TODO - your code here!
-  res.send('Is there anybody out there?');
+  res.send('HELLO!');
   // This route should send back the top 25 repos
 });
 
