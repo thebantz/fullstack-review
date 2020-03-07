@@ -17,13 +17,13 @@ app.post('/repos', function (req, res) {
     db.saveRepo(arrOfRepos);
   });
 
-  res.send('It\'s up');
+  res.send('from app.post');
 });
 
 app.get('/repos', function (req, res) {
-  // TODO - your code here!
+  console.log('hi from app.get');
   res.send('HELLO!');
-  // This route should send back the top 25 repos
+  // TODO: This route should send back the top 25 repos
 });
 
 let port = 1128;

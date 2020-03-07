@@ -12,7 +12,7 @@ let getReposByUsername = (userName, callback) => {
     }
   };
 
-  console.log('hello from github!');
+  console.log('hello from getReposByUserName!');
   axios.request(options)
     .then(response => {
       let allRepos = [];

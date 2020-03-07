@@ -1,26 +1,24 @@
 const mongoose = require('mongoose');
-let Schema = mongoose.Schema;
 
 //FROM MDN's EXPRESS & MONGOOSE DOC
-const mongoDB = 'mongodb://localhost/githubRepos';
+const mongoDB = 'mongodb://localhost/practiceDB';
 mongoose.connect(mongoDB, { useNewUrlParser: true });
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', () => console.log('DB is once again ok'));
 
 let repoSchema = new mongoose.Schema({
-  // TODO: your schema here!
   _id: Number,
   name: String,
   author: String,
   forks: Number
 });
 
-let Mango = mongoose.model('Mango', repoSchema); // set collection name
+let Repo = mongoose.model('Repo', repoSchema); // set collection name
 
 const saveRepo = (arrOfRepos) => {
   for (var i = 0; i < arrOfRepos.length; i++) {
-    let oneRepo = new Mango({
+    let oneRepo = new Repo({
       _id: arrOfRepos[i].id,
       name: arrOfRepos[i].name,
       author: arrOfRepos[i].author,
@@ -29,7 +27,7 @@ const saveRepo = (arrOfRepos) => {
 
     oneRepo.save((err, repo) => {
       if (err) { console.log(err); }
-      else { console.log('all\'s been saved'); }
+      else { console.log('successfully created document in collection'); }
     })
   }
 }

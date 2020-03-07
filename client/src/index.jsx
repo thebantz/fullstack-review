@@ -10,13 +10,24 @@ class App extends React.Component {
     this.state = {
       repos: []
     }
+    this.showcaseRepos = this.showcaseRepos.bind(this);
+  }
+
+  // TODO: Go into DBs and fetch count of entries for length of all repos
+  componentDidMount() {
+    setTimeout(() => this.showcaseRepos(), 0);
   }
 
   search(term) {
     console.log(`${term} was searched`);
     axios.post('/repos', { search: term })
-      .then(console.log('sendin up some search'))
+      .then(responses => console.log(responses))
       .catch(error => console.log(error));
+  }
+
+  showcaseRepos() {
+    console.log('TODO: Get Repos from DB Rendering');
+
   }
 
   render() {
