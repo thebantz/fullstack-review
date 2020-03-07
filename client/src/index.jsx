@@ -12,8 +12,6 @@ class App extends React.Component {
     };
     this.showcaseRepos = this.showcaseRepos.bind(this);
   }
-
-  // TODO: Go into DBs and fetch count of entries for length of all repos
   componentDidMount() {
     // setTimeout(() => this.showcaseRepos(), 0);
     this.showcaseRepos();
@@ -28,8 +26,6 @@ class App extends React.Component {
   }
 
   showcaseRepos() {
-    // console.log("TODO: Get Repos from DB Rendering");
-    // TODO: DO A GET REQUEST TO SERVER
     const repos = [...this.state.repos];
     axios
       .get("/repos")
@@ -46,8 +42,8 @@ class App extends React.Component {
     return (
       <div>
         <h1>Github Fetcher</h1>
-        <RepoList repos={this.state.repos} />
         <Search onSearch={this.search.bind(this)} />
+        <RepoList repos={this.state.repos} />
       </div>
     );
   }
