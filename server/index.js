@@ -3,6 +3,7 @@ let app = express();
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const githubHelp = require('../helpers/github.js');
+const db = require('../database/index.js');
 
 
 app.use(express.static(__dirname + '/../client/dist'));
@@ -13,7 +14,7 @@ app.post('/repos', function (req, res) {
   // model.get((err, data), req.body.search);
   const userName = req.body.search;
   githubHelp.getReposByUsername(userName);
-  res.send('Hello from Server');
+  res.send('It\'s up');
   // TODO - your code here!
   // This route should take the github username provided
   // and get the repo information from the github API, then
