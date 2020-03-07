@@ -1,11 +1,23 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 //FROM MDN's EXPRESS & MONGOOSE DOC
-const mongoDB = 'mongodb://localhost/practiceDB';
+const mongoDB = "mongodb://localhost/practiceDB";
+
 mongoose.connect(mongoDB, { useNewUrlParser: true });
 var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-db.once('open', () => console.log('DB is once again ok'));
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
+db.once("open", () => console.log("DB is once again ok"));
+
+const getAllRepos = callback => {
+  db.collection("repos")
+    .find()
+    .toArray((err, results) => {
+      if (err) {
+        callback(err, null);
+      }
+      callback(null, results);
+    });
+};
 
 let repoSchema = new mongoose.Schema({
   _id: Number,
@@ -14,9 +26,9 @@ let repoSchema = new mongoose.Schema({
   forks: Number
 });
 
-let Repo = mongoose.model('Repo', repoSchema); // set collection name
+let Repo = mongoose.model("Repo", repoSchema); // set collection name
 
-const saveRepo = (arrOfRepos) => {
+const saveRepo = arrOfRepos => {
   for (var i = 0; i < arrOfRepos.length; i++) {
     let oneRepo = new Repo({
       _id: arrOfRepos[i].id,
@@ -26,10 +38,16 @@ const saveRepo = (arrOfRepos) => {
     });
 
     oneRepo.save((err, repo) => {
-      if (err) { console.log(err); }
-      else { console.log('successfully created document in collection'); }
-    })
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("successfully created document in collection");
+      }
+    });
   }
-}
+};
 
-module.exports.saveRepo = saveRepo;
+module.exports = {
+  saveRepo,
+  getAllRepos
+};

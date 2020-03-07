@@ -1,34 +1,36 @@
-const express = require('express');
+const express = require("express");
 let app = express();
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
 const jsonParser = bodyParser.json();
-const githubHelp = require('../helpers/github.js');
-const db = require('../database/index.js');
+const githubHelp = require("../helpers/github.js");
+const db = require("../database/index.js");
 
-
-app.use(express.static(__dirname + '/../client/dist'));
-// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(__dirname + "/../client/dist"));
 app.use(bodyParser.json());
 
-app.post('/repos', function (req, res) {
+app.post("/repos", function(req, res) {
   const userName = req.body.search;
   githubHelp.getReposByUsername(userName, (err, arrOfRepos) => {
-    if (err) { console.log(err); }
+    if (err) {
+      console.log(err);
+    }
     db.saveRepo(arrOfRepos);
   });
-
-  res.send('from app.post');
+  res.send("from app.post");
 });
 
-app.get('/repos', function (req, res) {
-  console.log('hi from app.get');
-  res.send('HELLO!');
-  // TODO: This route should send back the top 25 repos
+app.get("/repos", (req, res) => {
+  db.getAllRepos((err, allRepos) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(allRepos);
+    }
+  });
 });
 
 let port = 1128;
 
-app.listen(port, function () {
+app.listen(port, function() {
   console.log(`listening on port ${port}`);
 });
-
