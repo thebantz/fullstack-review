@@ -13,8 +13,10 @@ app.use(bodyParser.json());
 app.post('/repos', function (req, res) {
   // model.get((err, data), req.body.search);
   const userName = req.body.search;
-  var repoDeets = githubHelp.getReposByUsername(userName);
-  // db.saveRepo()
+  githubHelp.getReposByUsername(userName, (err, arrOfRepos) => {
+    if (err) { console.log(err); }
+    db.saveRepo(arrOfRepos);
+  });
 
 
   res.send('It\'s up');

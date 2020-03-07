@@ -10,8 +10,7 @@ db.once('open', () => console.log('DB is once again ok'));
 
 let repoSchema = new mongoose.Schema({
   // TODO: your schema here!
-  // id: Schema.ObjectId,
-  id: Number,
+  _id: Number,
   name: String,
   author: String,
   stars: Number
@@ -33,8 +32,20 @@ let Repo = mongoose.model('Repo', repoSchema);
 //   }
 //   console.log(repo.name, ' has been saved to the database');
 // }
-let saveRepo = (repoCallback) => {
-  repoCallback();
+const saveRepo = (arrOfRepos) => {
+  for (var i = 0; i < arrOfRepos.length; i++) {
+    let oneRepo = new Repo({
+      _id: arrOfRepos[i].id,
+      name: arrOfRepos[i].name,
+      author: arrOfRepos[i].author,
+      forks: arrOfRepos[i].forks
+    });
+
+    oneRepo.save((err, repo) => {
+      if (err) { console.log(err); }
+      else { console.log('all\'s been saved'); }
+    })
+  }
 }
 
 // coolRepo.save((err, repo) => {
@@ -42,9 +53,7 @@ let saveRepo = (repoCallback) => {
 //   console.log(repo.name, ' has been saved to the database!');
 // });
 
-module.exports.db = {
-  saveRepo, mongoose
-};
+module.exports.saveRepo = saveRepo;
 
 //FROM MONGOOSE QUICKSTART ---
 // mongoose.connect('mongodb://localhost/1128', { useNewUrlParser: true });

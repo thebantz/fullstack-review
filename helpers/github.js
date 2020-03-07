@@ -2,7 +2,7 @@
 const config = require('../config.js');
 const axios = require('axios');
 
-let getReposByUsername = (userName) => {
+let getReposByUsername = (userName, callback) => {
   // TODO - Use the request module to request repos for a specific
   // user from the github API
   // The options object has been provided to help you out,
@@ -17,10 +17,23 @@ let getReposByUsername = (userName) => {
     }
   };
 
+
+
   console.log('hello from github!');
   axios.request(options)
-    // .then(response => console.log('all repos', response.data[1].name))
-    .then(response => response.data.forEach(repo => console.log('a repo: ', repo))) // prints each person's public repo in
+    .then(response => {
+      let allRepos = [];
+      response.data.forEach(repo => {
+        let repoDetails = {
+          id: repo.id,
+          name: repo.name,
+          author: repo.owner.login,
+          forks: repo.forks_count
+        }
+        allRepos.push(repoDetails);
+      })
+      callback(null, allRepos);
+    })
     .catch(err => console.log(err));
 }
 
