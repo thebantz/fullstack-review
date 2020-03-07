@@ -4,8 +4,7 @@ class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      term: '',
-      pickle: true
+      term: ''
     }
     this.onChange = this.onChange.bind(this);
     this.search = this.search.bind(this);
@@ -20,8 +19,7 @@ class Search extends React.Component {
   search() {
     this.props.onSearch(this.state.term);
     this.setState({
-      term: '',
-      pickle: false
+      term: ''
     });
   }
 
