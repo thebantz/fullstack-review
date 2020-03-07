@@ -11,18 +11,10 @@ class App extends React.Component {
     this.state = {
       repos: []
     }
-
   }
 
   search(term) {
     console.log(`${term} was searched`);
-    // axios({
-    //   method: 'post',
-    //   url: '/repos',
-    //   data: { search: term }
-    // })
-    //   .then(console.log('posting something'))
-    //   .catch(error => console.log(error));
     axios.post('/repos', { search: term })
       .then(console.log('sendin up some search'))
       .catch(error => console.log(error));

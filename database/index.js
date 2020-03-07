@@ -18,20 +18,6 @@ let repoSchema = new mongoose.Schema({
 
 let Repo = mongoose.model('Repo', repoSchema);
 
-// let coolRepo = new Repo({
-//   id: 12345,
-//   name: 'cool repo',
-//   author: 'nicolebanta',
-//   stars: 5
-// })
-
-// let save = (err, repo) => {
-//   // This function should save a repo or repos to the MongoDB
-//   if (err) {
-//     console.log(err);
-//   }
-//   console.log(repo.name, ' has been saved to the database');
-// }
 const saveRepo = (arrOfRepos) => {
   for (var i = 0; i < arrOfRepos.length; i++) {
     let oneRepo = new Repo({

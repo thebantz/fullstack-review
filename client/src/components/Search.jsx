@@ -4,7 +4,8 @@ class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      term: ''
+      term: '',
+      pickle: true
     }
     this.onChange = this.onChange.bind(this);
     this.search = this.search.bind(this);
@@ -18,12 +19,16 @@ class Search extends React.Component {
 
   search() {
     this.props.onSearch(this.state.term);
+    this.setState({
+      term: '',
+      pickle: false
+    });
   }
 
   render() {
     return (<div>
       <h4>Add more repos!</h4>
-      Enter a github username: <input value={this.state.terms} onChange={this.onChange} />
+      Enter a github username: <input value={this.state.term} onChange={this.onChange} />
       <button onClick={this.search}> Add Repos </button>
     </div>)
   }
