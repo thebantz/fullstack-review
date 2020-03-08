@@ -26,7 +26,9 @@ app.get("/repos", (req, res) => {
       console.log(err);
       res.sendStatus(400);
     } else {
-      res.send(allRepos);
+      var repos25 = allRepos.slice(0, 25);
+      res.send(repos25);
+      // res.send(allRepos);
     }
   });
 });
