@@ -13,16 +13,18 @@ app.post("/repos", function(req, res) {
   githubHelp.getReposByUsername(userName, (err, arrOfRepos) => {
     if (err) {
       console.log(err);
+      res.sendStatus(400);
     }
     db.saveRepo(arrOfRepos);
+    res.send("from app.post");
   });
-  res.send("from app.post");
 });
 
 app.get("/repos", (req, res) => {
   db.getAllRepos((err, allRepos) => {
     if (err) {
       console.log(err);
+      res.sendStatus(400);
     } else {
       res.send(allRepos);
     }

@@ -21,19 +21,21 @@ class App extends React.Component {
     console.log(`${term} was searched`);
     axios
       .post("/repos", { search: term })
-      .then(responses => console.log(responses))
+      .then(() => {
+        this.showcaseRepos();
+      })
       .catch(error => console.log(error));
   }
 
   showcaseRepos() {
-    const repos = [...this.state.repos];
+    const repos = [];
     axios
       .get("/repos")
       .then(allRepos => {
         allRepos.data.forEach(aRepo => {
           repos.push(aRepo);
         });
-        this.setState({ repos: repos });
+        this.setState({ repos });
       })
       .catch(error => console.log(error));
   }

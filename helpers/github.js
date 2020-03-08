@@ -12,9 +12,24 @@ let getReposByUsername = (userName, callback) => {
     }
   };
 
-  console.log("hello from getReposByUserName!");
-  axios
-    .request(options)
+  // axios
+  //   .request(options)
+  //   .then(response => {
+  //     let allRepos = [];
+  //     response.data.forEach(repo => {
+  //       let repoDetails = {
+  //         id: repo.id,
+  //         name: repo.name,
+  //         author: repo.owner.login,
+  //         forks: repo.forks
+  //       };
+  //       allRepos.push(repoDetails);
+  //     });
+  //     callback(null, allRepos);
+  //   })
+  //   .catch(err => console.log(err));
+
+  axios(options)
     .then(response => {
       let allRepos = [];
       response.data.forEach(repo => {

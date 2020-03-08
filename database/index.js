@@ -1,6 +1,4 @@
 const mongoose = require("mongoose");
-
-//FROM MDN's EXPRESS & MONGOOSE DOC
 const mongoDB = "mongodb://localhost/practiceDB";
 
 mongoose.connect(mongoDB, { useNewUrlParser: true });
