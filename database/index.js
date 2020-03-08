@@ -9,6 +9,8 @@ db.once("open", () => console.log("DB is once again ok"));
 const getAllRepos = callback => {
   db.collection("repos")
     .find()
+    .limit(25)
+    .sort({ forks: -1 })
     .toArray((err, results) => {
       if (err) {
         callback(err, null);
